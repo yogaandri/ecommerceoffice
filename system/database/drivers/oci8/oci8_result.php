@@ -5,9 +5,8 @@
  * An open source application development framework for PHP 5.1.6 or newer
  *
  * @package		CodeIgniter
- * @author		EllisLab Dev Team
- * @copyright   	Copyright (c) 2008 - 2014, EllisLab, Inc.
- * @copyright		Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
+ * @author		ExpressionEngine Dev Team
+ * @copyright   Copyright (c) 2008 - 2011, EllisLab, Inc.
  * @license		http://codeigniter.com/user_guide/license.html
  * @link		http://codeigniter.com
  * @since		Version 1.0
@@ -22,14 +21,14 @@
  * This class extends the parent result class: CI_DB_result
  *
  * @category	Database
- * @author		EllisLab Dev Team
+ * @author		ExpressionEngine Dev Team
  * @link		http://codeigniter.com/user_guide/database/
  */
 class CI_DB_oci8_result extends CI_DB_result {
 
-	public $stmt_id;
-	public $curs_id;
-	public $limit_used;
+	var $stmt_id;
+	var $curs_id;
+	var $limit_used;
 
 	/**
 	 * Number of rows in the result set.
@@ -37,6 +36,8 @@ class CI_DB_oci8_result extends CI_DB_result {
 	 * Oracle doesn't have a graceful way to retun the number of rows
 	 * so we have to use what amounts to a hack.
 	 *
+	 *
+	 * @access  public
 	 * @return  integer
 	 */
 	public function num_rows()
@@ -44,15 +45,15 @@ class CI_DB_oci8_result extends CI_DB_result {
 		if ($this->num_rows === 0 && count($this->result_array()) > 0)
 		{
 			$this->num_rows = count($this->result_array());
-			@oci_execute($this->stmt_id, OCI_DEFAULT);
+			@oci_execute($this->stmt_id);
 
 			if ($this->curs_id)
 			{
-				@oci_execute($this->curs_id, OCI_DEFAULT);
+				@oci_execute($this->curs_id);
 			}
 		}
 
-		return $this->num_rows;
+		return $rowcount;
 	}
 
 	// --------------------------------------------------------------------
