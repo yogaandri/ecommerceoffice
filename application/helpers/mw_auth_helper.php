@@ -32,21 +32,12 @@
 * @category    Auth
 * @author      Afri Yosela <afri_yosela@yahoo.com>
 */
-	function info_user($field,$value)
-	{
-		$ci =& get_instance();
-		return $ci->mw_auth->info_user($field,$value);
-	}
 	function require_authentication()
 	{
 		$ci =& get_instance(); 
 		return $ci->mw_auth->require_authentication();
 	}
-	function require_authentication_petugas()
-	{
-		$ci =& get_instance(); 
-		return $ci->mw_auth->require_authentication_petugas();
-	}
+	
 	function cek_access($permission){
 		$ci =& get_instance(); 
 		return $ci->mw_auth->cek_access($permission);
@@ -56,20 +47,11 @@
 		$ci =& get_instance();
 		return $ci->mw_auth->logged_in();
 	}
-	function logged_in_petugas()
-	{
-		$ci =& get_instance();
-		return $ci->mw_auth->logged_in_petugas();
-	}
+
 	function logout()
 	{
 		$ci =& get_instance();
 		return $ci->mw_auth->logout();
 	}
-	function logout_petugas()
-	{
-		$ci =& get_instance();
-		return $ci->mw_auth->logout_petugas();
-	}
-
+	
 ?>
