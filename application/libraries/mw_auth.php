@@ -42,9 +42,9 @@ class MW_auth
 	{
 		return $this->ci->mw_auth_model->login($identity,$password);
 	}
-	function login_petugas($identity,$password)
+	function login_user($identity,$password)
 	{
-		return $this->ci->mw_auth_model->login_petugas($identity,$password);
+		return $this->ci->mw_auth_model->login_user($identity,$password);
 	}
 		
 	function logged_in()
@@ -55,19 +55,8 @@ class MW_auth
 			return FALSE;
 		}
 	}	
-	function logged_in_petugas()
-	{
-		if($this->ci->session->userdata('logged_in_petugas') && $this->ci->session->userdata('username') && $this->ci->session->userdata('logged_in_petugas') == TRUE){
-			return TRUE;
-		}else{
-			return FALSE;
-		}
-	}
-	function info_user($field,$value)
-	{
-		$identity = 'username';
-		return $this->ci->mw_auth_model->info_user($field,$value,$identity);
-	}
+	
+	
 	function require_authentication()
 	{
 		if (!logged_in()) {
@@ -75,13 +64,7 @@ class MW_auth
 		exit;
 		}
 	}
-	function require_authentication_petugas()
-	{
-		if (!logged_in_petugas()) {
-			redirect(site_url('petugas/login'));
-		exit;
-		}
-	}
+	
 	function cek_access($permission)
 	{
 		if ($this->ci->session->userdata('usertype')==$permission) {
@@ -96,15 +79,10 @@ class MW_auth
 	{
 		$this->ci->session->unset_userdata('username');
 		$this->ci->session->unset_userdata('logged_in');
+		$this->ci->session->unset_userdata('id_masuk');
+		$this->ci->session->unset_userdata('id_kembali_on');
 		$this->ci->session->sess_destroy();
 		return TRUE;
 	}
-	function logout_petugas()
-	{
-		$this->ci->session->unset_userdata('username');
-		$this->ci->session->unset_userdata('logged_in_petugas');
-		$this->ci->session->unset_userdata('id_keluar');
-		$this->ci->session->sess_destroy();
-		return TRUE;
-	}
+	
 }
