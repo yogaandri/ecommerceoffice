@@ -50,36 +50,7 @@ class MW_auth_model extends CI_Model
 	//Cek user ke dalam database
 	function login($username,$password)
 	{
-		$login		= $this->db->query('SELECT id_user,username,password
-										FROM tb_user
-										WHERE username = "'.$this->cleanuserinput($username).'"
-										LIMIT 0,1');
-		if($login->num_rows() == 1)
-		{
-			$result = $login->row();
-			$password = md5($password);
-			if($result->password == trim($password))
-			{
-				$this->db->where('username', $this->cleanuserinput($username)); 
-				return $this->authenticate($this->cleanuserinput($username),$result->id_user);
-			}
-			else
-			{
-				$this->session->set_flashdata('message', '<span class="error">Maaf password dan email anda tidak cocok, coba login kembali.</span>');
-				return false;
-			}
-			return false;
-		}
-		else
-		{
-			$this->session->set_flashdata('message', '<div class="error">Maaf, data anda tidak ada dalam sistim kami, silahkan masuk kembali.</div>');
-			return false;
-		}
-	}
-	//Cek user ke dalam database
-	function login_petugas($username,$password)
-	{
-		$login		= $this->db->query('SELECT id_petugas, username, password,nama
+		$login		= $this->db->query('SELECT id_petugas,username,password
 										FROM tb_petugas
 										WHERE username = "'.$this->cleanuserinput($username).'"
 										LIMIT 0,1');
@@ -90,50 +61,33 @@ class MW_auth_model extends CI_Model
 			if($result->password == trim($password))
 			{
 				$this->db->where('username', $this->cleanuserinput($username)); 
-				return $this->authenticate_petugas($this->cleanuserinput($username),$result->id_petugas);
+				return $this->authenticate($this->cleanuserinput($username),$result->id_petugas);
 			}
 			else
 			{
-				$this->session->set_flashdata('message', '<span class="error">Maaf password dan email anda tidak cocok, coba login kembali.</span>');
+				$this->session->set_flashdata('message', '<span class="error">Maaf password dan username anda tidak cocok, coba login kembali.</span>');
 				return false;
 			}
 			return false;
 		}
 		else
 		{
-			$this->session->set_flashdata('message', '<div class="error">Maaf, data anda tidak ada dalam sistim kami, silahkan masuk kembali.</div>');
+			$this->session->set_flashdata('message', '<div class="error">Maaf, Anda belum terdaftar dalam sistem</div>');
 			return false;
 		}
 	}
+	
 	//Masukkan session data
 	function authenticate($username,$id)
 	{
 		$data = array(
 				'username'  	=> $username,
-				'id_user'  		=> $id,
+				'id_petugas'  		=> $id,
                 'logged_in' => TRUE
                );
 		$this->session->set_userdata($data);
 		return true;
 	}
-	//Masukkan session data
-	function authenticate_petugas($username,$id)
-	{
-		$data = array(
-				'username'  	=> $username,
-				'id_petugas'  	=> $id,
-                'logged_in_petugas' => TRUE
-               );
-		$this->session->set_userdata($data);
-		return true;
-	}
-	//mencari data dari user
-	function info_user($field,$value,$identity)
-	{
-		$this->db->select($field);
-		$query = $this->db->get_where('tb_user', array($identity => $value));
-		$row = $query->row();
-		return $row->$field;
-	}
+	
 }
 ?>
