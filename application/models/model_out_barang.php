@@ -10,14 +10,14 @@
 
 		function barang_insert($data)
 		{
-			$tambah = $this->db->insert('tbl_keu_out_barang, $data');
+			$tambah = $this->db->insert('tbl_keu_out_barang', $data);
 			return $tambah;
 		}
 
 		function data_update($id)
 		{
 			$tampil = $this->db->get_where('tbl_keu_out_barang',array('id_out_barang'=>$id));
-			return $tampil->result_array();
+			return $tampil->first_row("array");
 
 		}
 		
@@ -38,16 +38,20 @@
 					'modified_date' => $this->input->post('txt_modifieddate')
 				);
 
-				$this->db->whare('id_out_barang',id);
+				$this->db->where('id_out_barang',$id);
 				$update = $this->db->update('tbl_keu_out_barang', $data);
 				return $update;
 		}
 
 		function barang_delete($id)
 		{
-			$this->db->whare('id_out_barang',$id);
+			$this->db->where('id_out_barang',$id);
 			$delete = $this->db->delete('tbl_keu_out_barang');
 		}
+
+
+
 	}
+		
 
 ?>

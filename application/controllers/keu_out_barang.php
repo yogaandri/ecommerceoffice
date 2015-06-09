@@ -23,7 +23,7 @@
 		public function add()
 		{
 			$data['title'] 		= "Tambah Daftar Pembelian Barang";
-			$data['content']	= $this->load->view('out_barang/add_out_barang',$data,true);
+			$data['content']	= $this->load->view('keu_out_barang/add_out_barang',$data,true);
 			$this->load->view('wrapper/wrapper_output_keu',$data);
 
 		}
@@ -44,7 +44,7 @@
 			$this->form_validation->set_rules('txt_modifieddate','modified_date','required');
 
 
-			if(!this->form_validation->run())
+			if(!$this->form_validation->run())
 			{
 				$this->add;
 			}
@@ -65,8 +65,8 @@
 					'modified_date'=>$this->input->post('txt_modifieddate')
 				);
 				
-				$this->load->model('model_barang');
-				$nulis = $this->model_barang->barang_insert($data);
+				$this->load->model('Model_out_barang');
+				$nulis = $this->Model_out_barang->barang_insert($data);
 
 				if($nulis)
 				{
@@ -76,43 +76,42 @@
 				{
 					$this->session->$this->session->set_flashdata('message', 'GAGAL MENAMABAH DATA');
 				}
-				redirect(site_url('out_barang'));
+				redirect(base_url('Keu_out_barang'));
 			}
 		}
 
-		public update_outbarang($id)
+		public function update_outbarang($id)
 		{
 			$lol = $id;
 
-			$this->load->model('model_barang');
-			$data['list'] = $this->model_barang->data_update($lol);
+			$this->load->model('Model_out_barang');
+			$data['list'] = $this->Model_out_barang->data_update($lol);
+
+			// print_r($data['list']);
 
 			if (isset($_POST['ubah']))
 			{
-				$haha = $this->user_model->barang_update($lol);
+				$haha = $this->Model_out_barang->barang_update($lol);
 				if($haha)
 				{
-					redirect(site_url('out_barang'));
+					redirect(base_url('Keu_out_barang'));
 				}
 				else
 				{
-					redirect(site_url('out_barang/update_out_barang'));
+					redirect(base_url('Keu_out_barang/update_outbarang'));
 				}
 			}
-			else
-			{
-				echo "AND YOUR FAIL";
-			}
+		
+			$this->load->view('keu_out_barang/update_out_barang',$data);
 		}
-		$this->load->view('out_barang/update_out_barang',$data);
-
-	}
 
 	function hapus ($id)
 	{
-		$this->load->model('model_barang');
-		$delete = $this->model_barang->barang_delete($id);
-		redirect(site_url('out_barang'));
+		$this->load->model('Model_out_barang');
+		$delete = $this->Model_out_barang->barang_delete($id);
+		redirect(base_url('Keu_out_barang'));
 	}
-	}
+
+
+	}	
 ?>

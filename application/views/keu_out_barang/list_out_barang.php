@@ -27,7 +27,7 @@
 		 ';
 	if (!empty ($list))
 	{
-		foreach ($lis as $key => $row) 
+		foreach ($list as $key => $row) 
 		{
 			echo '<tr>';
 			echo '<td>'.++$key.'</td>';
@@ -43,9 +43,15 @@
 			echo '<td>'.$row['created_date'].'</td>';
 			echo '<td>'.$row['modified_by'].'</td>';
 			echo '<td>'.$row['modified_date'].'</td>';
-			echo '<td>'.'<a href = '.site_url('Keu_out_barang/list_out_barang'.$row['id_out_barang'].'').'>Edit</a></td>';
-			echo '<td>'.'<a href = '.site_url('Keu_out_barang/hapus'.$row['id_out_barang'].'').'>Edit</a></td>';
+			echo '<td>'.'<a href = '.base_url('Keu_out_barang/update_outbarang/'.$row['id_out_barang'].'').'>Edit</a></td>';
+			echo '<td>'.'<a href = '.base_url('Keu_out_barang/hapus/'.$row['id_out_barang'].'').'>Hapus</a></td>';
 			echo '<tr>';
 		}
 	}
+	else
+	{
+		echo'<tr><td>tidak ada data yang ditampilkan</td>';
+	}
+
+	echo'</table>';
 ?>
