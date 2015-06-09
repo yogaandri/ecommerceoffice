@@ -1,4 +1,4 @@
-<a href="<?php echo site_url('Keu_out_barang/update_barang');?>">TAMBAH DATA</a>
+<a href="<?php echo base_url('Keu_out_barang/add');?>">TAMBAH DATA</a>
 <?php
 
 	if($this->session->flashdata('message') !=null)
