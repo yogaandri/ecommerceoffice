@@ -1,6 +1,7 @@
 <?php
 	
 	/**
+	Rizqya Zakyyatul Arif
 	* 
 	*/
 	class Keu_out_barang extends CI_CONTROLLER
