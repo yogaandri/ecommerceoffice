@@ -1,0 +1,23 @@
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		<?php
+			if(validation_errors() !=null){echo validation_errors();}
+		?>
+
+		<form method="post" action="<?php echo site_url('keu_in_investor/do_add');?>">
+			<input type="text" id="ktp_investor" name="txt_ktpinvestor" placeholder="KTP INVESTOR">
+			<input type="text" id="nama_investor" name="txt_nminvestor" placeholder="NAMA INVESTOR">
+			<input type="text" id="alamat_investor" name="txt_almtinvestor" placeholder="ALAMAT INVESTOR">
+			<input type="text" id="ket_investasi" name="txt_ketinvestasi" placeholder="KETERANGAN INVESTASI">
+			<input type="text" id="jum_investasi" name="txt_juminvestasi" placeholder="JUMLAH INVESTASI">
+			<input type="text" id="created_by" name="txt_createdby" placeholder="CREATED BY">
+			<input type="text" id="created_date" name="txt_createdate" placeholder="CREATED DATE">
+			<input type="text" id="modified_by" name="txt_modifiedby" placeholder="MODIFIED BY">
+			<input type="text" id="modified_date" name="txt_modifieddate" placeholder="MODIFIEN DATE">
+			<input type="submit" name="simpan" value="SIMPAN">
+		</form>
+	</body>
+</html>
